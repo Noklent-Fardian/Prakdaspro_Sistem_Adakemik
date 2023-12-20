@@ -1802,8 +1802,10 @@ public class MainApps {
                         System.out.println("SKS matkul sudah habis");
                 }
                 while (true) {
-                    _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
-                    if (Integer.parseInt(_3) <= tempSKS[_2 - 1]) {
+                    _3 = getInputStringNumberwithLimit("Lama jam matkul", 2, 11 - min, false);
+                    if (Integer.parseInt(_3) % 2.0 == 1) {
+                        System.out.println("Jam matkul harus genap");
+                    } else if (Integer.parseInt(_3) <= tempSKS[_2 - 1]) {
                         tempSKS[_2 - 1] -= Integer.parseInt(_3);
                         break;
                     } else
@@ -1823,9 +1825,9 @@ public class MainApps {
         }
         tampilkanJadwalBerdasarkanKelas(tempJadawal);
         String userChoose = getInputUniqueWord("Simpan perubahan y/t", 1, 1, true, "y", "t");
-         SKS= new int[]{ 2, 4, 4, 6, 4, 4, 6, 4 };
-        if (userChoose.equals("n")){
-            SKS= new int[]{ 2, 4, 4, 6, 4, 4, 6, 4 };
+        SKS = new int[] { 2, 4, 4, 6, 4, 4, 6, 4 };
+        if (userChoose.equals("n")) {
+            SKS = new int[] { 2, 4, 4, 6, 4, 4, 6, 4 };
             clearScreen();
             System.out.println("Dibatalkan");
             return;
