@@ -1309,7 +1309,7 @@ public class MainApps {
             System.out.println("ID " + id + " sudah terdaftar");
             return;
         }
-        String nama = getInputStringWithLimit("NAMA", 1, 25, false);
+        String nama = getInputStringWithLimit("NAMA", 1, 40, false);
         String jenisKelamin = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
         String alamat = getInputStringWithLimit("Alamat", 1, 15, false);
         String tanggalLahir = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
@@ -1786,7 +1786,7 @@ public class MainApps {
                 System.out.println("1. Mulai dari jam ke-(1-11)\n2. Index Kode matkul\n3. Lama jam matkul(1-6)");
                 if (onceExecution) {
                     next = getInputUniqueWord(
-                            "Jadwal kosong pada hari " + kumpulanHari[i] + " y/n (untuk input jadwal)", 1, 1, true,
+                            "Jadwal kosong pada hari " + kumpulanHari[i] + " y/n ('n'untuk input jadwal)", 1, 1, true,
                             "y", "n");
                     onceExecution = false;
                     if (next.equals("Y"))
@@ -1802,8 +1802,10 @@ public class MainApps {
                         System.out.println("SKS matkul sudah habis");
                 }
                 while (true) {
-                    _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
-                    if (Integer.parseInt(_3) <= tempSKS[_2 - 1]) {
+                    _3 = getInputStringNumberwithLimit("Lama jam matkul", 2, 11 - min, false);
+                    if (Integer.parseInt(_3) % 2.0 == 1) {
+                        System.out.println("Jam matkul harus genap");
+                    } else if (Integer.parseInt(_3) <= tempSKS[_2 - 1]) {
                         tempSKS[_2 - 1] -= Integer.parseInt(_3);
                         break;
                     } else
@@ -1815,7 +1817,7 @@ public class MainApps {
                 tempJadawal[i][j] = _1 + "-" + matkulTI[_2 - 1][0] + "-" + _3;
                 if (min > 8)
                     break;
-                next = getInputUniqueWord("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1, true,
+                next = getInputUniqueWord("Masukan matkul selanjutnya y/n('n'Lanjut hari berikutnya)", 1, 1, true,
                         "y", "n");
                 if (next.equals("N"))
                     break;
@@ -1823,8 +1825,13 @@ public class MainApps {
         }
         tampilkanJadwalBerdasarkanKelas(tempJadawal);
         String userChoose = getInputUniqueWord("Simpan perubahan y/t", 1, 1, true, "y", "t");
-        if (userChoose.equals("n"))
+        SKS = new int[] { 2, 4, 4, 6, 4, 4, 6, 4 };
+        if (userChoose.equals("n")) {
+            SKS = new int[] { 2, 4, 4, 6, 4, 4, 6, 4 };
+            clearScreen();
+            System.out.println("Dibatalkan");
             return;
+        }
         arrayKelas = tempJadawal;
         switch (stringKelas) {
             case "1A" -> jadwal_1A = tempJadawal;
